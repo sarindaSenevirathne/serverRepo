@@ -1,11 +1,14 @@
 import ballerina/http;
+import ballerina/lang.runtime;
 
-# A service representing a network-accessible API
-# bound to port `9090`.
+configurable decimal sleepTime = ?;
+
 service / on new http:Listener(9091) {
 
   
-    resource function post \*(http:Request request) returns json|error {
-       return request.getJsonPayload();
+    resource function post resourceEndpoint(@http:Payload json jsonPayload) returns json|error {
+
+        runtime:sleep(sleepTime);
+        return jsonPayload;
     }
 }
